@@ -152,7 +152,7 @@ while True:
             layer5.append(carbon_atom + double_bond_horizontal)
             carbon_position_counter = carbon_position_counter + 1
         elif carbon_value < 0 and suffix == "ene" and carbon_position_counter == carbon_value:
-
+            pass
         else:
             layer5.append(carbon_atom + bond_horizontal)
             carbon_position_counter = carbon_position_counter + 1
