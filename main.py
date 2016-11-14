@@ -7,9 +7,11 @@
 #Cleaner code, easier to debug.
 #A proper menu
 
-print("\t\tWelcome to the organic compounder V.2\n
-(c) 2016\n
-Please use organic molecules responsibly\n\n\n")
+import re
+
+print("""Welcome to the organic compounder V.2
+        (c) 2016
+        Please use organic molecules responsibly""")
 
 #Defined lists
 prefixes = ["meth", "eth", "prop", "but", "pent", "hex", "hept", "oct", "non", "dec", " "]
@@ -41,6 +43,8 @@ def scan(compound):
         return
 
 def allotropes():
+    atoms = {}
+    compounds = []
     formula = input("Type in your formula, this program will find it's allotropes!\n>>")
     display = input("Do you want an advanced view for each of your allotropes? (Y/n)")
     if display.upper() == "Y" or display == "":
@@ -48,11 +52,26 @@ def allotropes():
     else:
         display = False
     #Make a list of parts    
-    formulalist = formula.split("C")
-    formulalist = formulalist[0].split("H") + formulalist
-    #Start with straight alkane
+    atoms["C"] = int(re.findall(r'C\d+', formula).strip("С"))
+    atoms["H"] = int(re.findall(r'H\d+', formula).strip("H"))
     
+    #Start with straight alkane, # of hydrogens always * 2 + 2 than carbon
+    if atoms["C"] * 2 + 2 == atoms["H"]:
+        compounds.append("%sane" % prefixes[atoms["C"]])
     
+    #Next straight alkene, # of hydrogens always * 2 than carbon
+    if atoms["C"] not 1:
+        if atoms["C"] * 2 == atoms["H"]:
+            compounds.append("%sene" % prefixes[atoms["C"]])
+            
+        #Lastly straight alkyne, # of hydrogens always * 2 - 2 than carbon
+        if atoms["C"] * 2 - 2 == atoms["H"]:
+            compounds.append("%syne" % prefixes[atoms["C"]])
+        
+    if not compounds:
+        print("No organic molecules can be made using the formula %s" % formula)
+        return
+        
     for compound in compounds:
         if display:
             scan(compound)
