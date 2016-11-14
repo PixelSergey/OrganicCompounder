@@ -47,26 +47,32 @@ def allotropes():
     compounds = []
     formula = input("Type in your formula, this program will find it's allotropes!\n>>")
     display = input("Do you want an advanced view for each of your allotropes? (Y/n)")
+    
     if display.upper() == "Y" or display == "":
         display = True
     else:
         display = False
+        
     #Make a list of parts    
     atoms["C"] = int(re.findall(r'C\d+', formula).strip("С"))
     atoms["H"] = int(re.findall(r'H\d+', formula).strip("H"))
     
     #Start with straight alkane, # of hydrogens always * 2 + 2 than carbon
     if atoms["C"] * 2 + 2 == atoms["H"]:
-        compounds.append("%sane" % prefixes[atoms["C"]])
-    
+        type = "a"
+        
     #Next straight alkene, # of hydrogens always * 2 than carbon
-    if atoms["C"] not 1:
-        if atoms["C"] * 2 == atoms["H"]:
-            compounds.append("%sene" % prefixes[atoms["C"]])
-            
-        #Lastly straight alkyne, # of hydrogens always * 2 - 2 than carbon
-        if atoms["C"] * 2 - 2 == atoms["H"]:
-            compounds.append("%syne" % prefixes[atoms["C"]])
+    if atoms["C"] * 2 == atoms["H"]:
+        type = "e"
+        
+    #Lastly straight alkyne, # of hydrogens always * 2 - 2 than carbon
+    if atoms["C"] * 2 - 2 == atoms["H"]:
+        type = "y"
+    
+    #Add straight molecule to list, there can be only one
+    compounds.append("%s%sne" % (prefixes, type))
+        
+        
         
     if not compounds:
         print("No organic molecules can be made using the formula %s" % formula)
