@@ -192,9 +192,10 @@ def allotropes():
         #Lastly straight alkyne, # of hydrogens always * 2 - 2 than carbon
         if atoms["C"] * 2 - 2 == atoms["H"]:
             typ = "y"
-            
-        for i in range(1, math.floor(atoms["C"]/2) + 1):
-            compounds.append("%s%s%sne" % (str(i) + "-", prefixes[atoms["C"]], typ))
+        
+        if typ:
+            for i in range(1, math.floor(atoms["C"]/2) + 1):
+                compounds.append("%s%s%sne" % (str(i) + "-", prefixes[atoms["C"]], typ))
         
         
     if not compounds:
