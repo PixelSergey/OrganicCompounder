@@ -181,7 +181,7 @@ def allotropes():
     
     #Start with straight alkane, # of hydrogens always * 2 + 2 than carbon
     if atoms["C"] * 2 + 2 == atoms["H"]:
-        compounds.append("%sane" % prefixes[atoms["C"]])
+        compounds.append("%sane" % prefixes[atoms["C"]-1])
     
     #Check that alkenes and alkynes have at least 2 atoms
     if atoms["C"] >= 2:    
@@ -195,7 +195,7 @@ def allotropes():
         
         if typ:
             for i in range(1, math.floor(atoms["C"]/2) + 1):
-                compounds.append("%s%s%sne" % (str(i) + "-", prefixes[atoms["C"]], typ))
+                compounds.append("%s%s%sne" % (str(i) + "-", prefixes[atoms["C"]-1], typ))
         
         
     if not compounds:
