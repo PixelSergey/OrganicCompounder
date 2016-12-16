@@ -3,7 +3,7 @@
 #Branch-type, straight-chain and cyclo types are implemented to this version.
 #Also includes Alcohols
 #No proper imaging system...yet
-#Has a feature to scan for allotropes of a formula.
+#Has a feature to scan for isomers of a formula.
 #Cleaner code, easier to debug.
 #A proper menu
 
@@ -15,7 +15,7 @@ print("""Welcome to the organic compounder V.2
         Please use organic molecules responsibly\n""")
 
 #Defined vars
-prefixes = ["meth", "eth", "prop", "but", "pent", "hex", "hept", "oct", "non", "dec", " "]
+prefixes = []
 bnd = "-"
 dble_bnd = "="
 trpl_bnd = "?"
@@ -25,6 +25,13 @@ dble_side_bnd = "/2"
 dble_side_bnd2 = "\\2"
 trpl_side_bnd = "/3"
 trpl_side_bnd2 = "\\3"
+
+def prefix_dump_get():
+    f = open("prefixes.txt", "r")
+    for line in f:
+        prefixes.append(line)
+
+    f.close()
 
 def odd_cyclo (x, y):
     horizontal_joint = "--"
@@ -37,7 +44,7 @@ def scan(compound):
         iterating_term = ""
         prefix = ""
         suffix = ""
-        prefix_list = ["meth", "eth", "prop", "but", "pent", "hex", "hept", "oct", "non", "dec"]
+        prefix_list = prefixes
         num_indicator = 0
         branch_value = 0
         carbon_value = 0
@@ -164,11 +171,11 @@ def scan(compound):
             single_bond_value = single_bond_value + value_hydrogen + value_carbon - 2
 
             
-def allotropes():
+def isomers():
     atoms = {}
     compounds = []
-    formula = input("Type in your formula, this program will find it's allotropes!\n>>")
-    display = input("Do you want an advanced view for each of your allotropes? (Y/n)\n>>")
+    formula = input("Type in your formula, this program will find it's isomers!\n>>")
+    display = input("Do you want an advanced view for each of your isomers? (Y/n)\n>>")
     
     if display.upper() == "Y" or display == "":
         display = True
@@ -212,12 +219,12 @@ def allotropes():
 #Menu
 while True:
     sector = input("""Which sector would you like to use?
-    [F]ind all the allotropes of a formula
+    [F]ind all the isomers of a formula
     [S]can an organic compound to find all about it
 >>""")
     #Navigation to each sector
     if sector.lower() == "f":
-        allotropes()
+        isomers()
         
     elif sector.lower() == "s":
         compound = input("Name your compound, and we will scan it and draw it:\t")
